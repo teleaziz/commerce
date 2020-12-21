@@ -58,7 +58,7 @@ const ProductCard: FC<Props> = ({
               layout={imgLayout}
               loading={imgLoading}
               priority={imgPriority}
-              src={p.images.edges?.[0]?.node.urlOriginal!}
+              src={p.images[0]}
               alt={p.images.edges?.[0]?.node.altText || 'Product Image'}
             />
           </div>
