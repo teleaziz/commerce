@@ -6,51 +6,41 @@ import type {
 import { useRouter } from 'next/router'
 import { Layout } from '@components/common'
 import { ProductView } from '@components/product'
-
+import { buildClient } from 'shopify-buy'
 // Data
 
-import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
-import getProduct from '@bigcommerce/storefront-data-hooks/api/operations/get-product'
-import getAllPages from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
-import getAllProductPaths from '@bigcommerce/storefront-data-hooks/api/operations/get-all-product-paths'
-
+const config = {
+  storefrontAccessToken: '2dd7917030d4c08c36d2cf4bb7617df0',
+  domain: 'builder-io-store.myshopify.com',
+}
 export async function getStaticProps({
   params,
   locale,
   preview,
 }: GetStaticPropsContext<{ slug: string }>) {
-  const config = getConfig({ locale })
+  const client = buildClient(config);
 
-  const { pages } = await getAllPages({ config, preview })
-  const { product } = await getProduct({
-    variables: { slug: params!.slug },
-    config,
-    preview,
-  })
+  const product = JSON.parse(JSON.stringify(await client.product.fetchByHandle(params!.slug)))
+  console.log('here product ', product);
 
   if (!product) {
     throw new Error(`Product with slug '${params!.slug}' not found`)
   }
 
   return {
-    props: { pages, product },
+    props: { product },
     revalidate: 200,
   }
 }
 
 export async function getStaticPaths({ locales }: GetStaticPathsContext) {
-  const { products } = await getAllProductPaths()
+  const client = buildClient(config);
 
+  const products: any[] = await client.product.fetchAll();
+
+  console.log('here slug ', products[0]?.handle)
   return {
-    paths: locales
-      ? locales.reduce<string[]>((arr, locale) => {
-          // Add a product path for every locale
-          products.forEach((product) => {
-            arr.push(`/${locale}/product${product.node.path}`)
-          })
-          return arr
-        }, [])
-      : products.map((product) => `/product${product.node.path}`),
+    paths: products.map((product) => `/product/${product.handle}`),
     fallback: 'blocking',
   }
 }

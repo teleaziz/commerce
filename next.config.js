@@ -6,7 +6,7 @@ const bundleAnalyzer = require('@next/bundle-analyzer')({
 
 module.exports = bundleAnalyzer({
   images: {
-    domains: ['cdn11.bigcommerce.com'],
+    domains: ['cdn.shopify.com', 'cdn.builder.io'],
   },
   i18n: {
     locales: ['en-US', 'es'],
@@ -14,24 +14,6 @@ module.exports = bundleAnalyzer({
   },
   rewrites() {
     return [
-      {
-        source: '/:locale/checkout',
-        destination: '/api/bigcommerce/checkout',
-      },
-      {
-        source: '/checkout',
-        destination: '/api/bigcommerce/checkout',
-      },
-      // The logout is also an action so this route is not required, but it's also another way
-      // you can allow a logout!
-      {
-        source: '/:locale/logout',
-        destination: '/api/bigcommerce/customers/logout?redirect_to=/',
-      },
-      {
-        source: '/logout',
-        destination: '/api/bigcommerce/customers/logout?redirect_to=/',
-      },
       // Rewrites for /search
       {
         source: '/:locale/search',

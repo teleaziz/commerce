@@ -3,10 +3,6 @@ import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import { getConfig } from '@bigcommerce/storefront-data-hooks/api'
-import getAllPages from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
-import getSiteInfo from '@bigcommerce/storefront-data-hooks/api/operations/get-site-info'
-import useSearch from '@bigcommerce/storefront-data-hooks/products/use-search'
 import { Layout } from '@components/common'
 import { ProductCard } from '@components/product'
 import { Container, Grid, Skeleton } from '@components/ui'
@@ -24,12 +20,9 @@ export async function getStaticProps({
   preview,
   locale,
 }: GetStaticPropsContext) {
-  const config = getConfig({ locale })
-  const { pages } = await getAllPages({ config, preview })
-  const { categories, brands } = await getSiteInfo({ config, preview })
 
   return {
-    props: { pages, categories, brands },
+    props: { pages: [], categories: [], brands: []},
   }
 }
 
@@ -56,19 +49,10 @@ export default function Search({
   const query = filterQuery({ sort })
 
   const { pathname, category, brand } = useSearchMeta(asPath)
-  const activeCategory = categories.find(
-    (cat) => getSlug(cat.path) === category
-  )
-  const activeBrand = brands.find(
-    (b) => getSlug(b.node.path) === `brands/${brand}`
-  )?.node
+  const activeCategory: any = null
+  const activeBrand: any = null;
 
-  const { data } = useSearch({
-    search: typeof q === 'string' ? q : '',
-    categoryId: activeCategory?.entityId,
-    brandId: activeBrand?.entityId,
-    sort: typeof sort === 'string' ? sort : '',
-  })
+  const data: any = null;
 
   const handleClick = (event: any, filter: string) => {
     if (filter !== activeFilter) {
@@ -151,18 +135,17 @@ export default function Search({
                     </li>
                     {categories.map((cat) => (
                       <li
-                        key={cat.path}
                         className={cn(
                           'block text-sm leading-5 text-gray-700 hover:bg-gray-100 lg:hover:bg-transparent hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900',
                           {
-                            underline:
-                              activeCategory?.entityId === cat.entityId,
+                            // underline:
+                            //   activeCategory?.entityId === cat.entityId,
                           }
                         )}
                       >
                         <Link
                           href={{
-                            pathname: getCategoryPath(cat.path, brand),
+                            // pathname: getCategoryPath(cat.path, brand),
                             query,
                           }}
                         >
@@ -172,7 +155,7 @@ export default function Search({
                               'block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4'
                             }
                           >
-                            {cat.name}
+                            {/* {cat.name} */}
                           </a>
                         </Link>
                       </li>
@@ -253,17 +236,17 @@ export default function Search({
                     </li>
                     {brands.flatMap(({ node }) => (
                       <li
-                        key={node.path}
+                        // key={node.path}
                         className={cn(
                           'block text-sm leading-5 text-gray-700 hover:bg-gray-100 lg:hover:bg-transparent hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900',
                           {
-                            underline: activeBrand?.entityId === node.entityId,
+                            // underline: activeBrand?.entityId === node.entityId,
                           }
                         )}
                       >
                         <Link
                           href={{
-                            pathname: getDesignerPath(node.path, category),
+                            // pathname: getDesignerPath(node.path, category),
                             query,
                           }}
                         >
@@ -273,7 +256,7 @@ export default function Search({
                               'block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4'
                             }
                           >
-                            {node.name}
+                            {/* {node.name} */}
                           </a>
                         </Link>
                       </li>
@@ -333,7 +316,7 @@ export default function Search({
 
           {data ? (
             <Grid layout="normal">
-              {data.products.map(({ node }) => (
+              {/* {data.products.map(({ node }) => (
                 <ProductCard
                   variant="simple"
                   key={node.path}
@@ -342,7 +325,7 @@ export default function Search({
                   imgWidth={480}
                   imgHeight={480}
                 />
-              ))}
+              ))} */}
             </Grid>
           ) : (
             <Grid layout="normal">

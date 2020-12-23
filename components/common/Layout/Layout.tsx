@@ -6,11 +6,9 @@ import React, { FC } from 'react'
 import { useUI } from '@components/ui/context'
 import { Navbar, Footer } from '@components/common'
 import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
-import { Sidebar, Button, Modal, LoadingDots } from '@components/ui'
+import { Sidebar, Button, LoadingDots } from '@components/ui'
 import { CartSidebarView } from '@components/cart'
-
-import { CommerceProvider } from '@bigcommerce/storefront-data-hooks'
-import type { Page } from '@bigcommerce/storefront-data-hooks/api/operations/get-all-pages'
+import { CommerceProvider } from '@lib/shopify/storefront-data-hooks'
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">
@@ -22,18 +20,6 @@ const dynamicProps = {
   loading: () => <Loading />,
 }
 
-const LoginView = dynamic(
-  () => import('@components/auth/LoginView'),
-  dynamicProps
-)
-const SignUpView = dynamic(
-  () => import('@components/auth/SignUpView'),
-  dynamicProps
-)
-const ForgotPassword = dynamic(
-  () => import('@components/auth/ForgotPassword'),
-  dynamicProps
-)
 const FeatureBar = dynamic(
   () => import('@components/common/FeatureBar'),
   dynamicProps
@@ -41,7 +27,6 @@ const FeatureBar = dynamic(
 
 interface Props {
   pageProps: {
-    pages?: Page[]
   }
 }
 
@@ -57,21 +42,15 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
   const { locale = 'en-US' } = useRouter()
 
   return (
-    <CommerceProvider locale={locale}>
+    <CommerceProvider shopName='builder-io-store' accessToken='2dd7917030d4c08c36d2cf4bb7617df0'>
       <div className={cn(s.root)}>
         <Navbar />
         <main className="fit">{children}</main>
-        <Footer pages={pageProps.pages} />
+        <Footer />
 
         <Sidebar open={displaySidebar} onClose={closeSidebar}>
           <CartSidebarView />
         </Sidebar>
-
-        <Modal open={displayModal} onClose={closeModal}>
-          {modalView === 'LOGIN_VIEW' && <LoginView />}
-          {modalView === 'SIGNUP_VIEW' && <SignUpView />}
-          {modalView === 'FORGOT_VIEW' && <ForgotPassword />}
-        </Modal>
 
         <FeatureBar
           title="This site uses cookies to improve your experience. By clicking, you agree to our Privacy Policy."
