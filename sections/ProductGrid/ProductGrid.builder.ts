@@ -40,10 +40,27 @@ const productCardFields: Input[] = [
   },
 ]
 
+
 const highlightedCardFields = productCardFields.concat({
   name: 'index',
   type: 'number',
 })
+
+const gridFields: Input[] = [
+  {
+    name: 'variant',
+    type: 'enum',
+    defaultValue: 'default',
+    enum: ['default', 'filled']
+  },
+  {
+    name: 'layout',
+    type: 'enum',
+    defaultValue: 'A',
+    enum: ['A', 'B', 'C', 'D', 'normal']
+  }
+]
+
 
 Builder.registerComponent(LazyProductGrid, {
   name: 'Product Grid',
@@ -103,6 +120,15 @@ Builder.registerComponent(LazyProductGrid, {
 }
 
       ],
+    },
+    {
+      name: 'gridProps',
+      defaultValue: {
+        variant: 'default',
+        layout: 'A',
+      },
+      type: 'object',
+      subFields: gridFields
     },
     {
       name: 'cardProps',

@@ -8,7 +8,8 @@ interface HighlightedCardProps extends ProductCardProps {
   index: number;
 }
 
-interface Props extends GridProps {
+interface Props {
+  gridProps: GridProps,
   productsQuery?: ShopifyBuy.Query;
   products: ShopifyBuy.Product[],
   offset: number;
@@ -17,7 +18,7 @@ interface Props extends GridProps {
   highlightCard?: HighlightedCardProps
 }
 
-export const ProductGrid: FC<Props> = ({products: initlaProducts, productsQuery, offset = 0, limit = 10, cardProps, highlightCard, ...gridProps}) => {
+export const ProductGrid: FC<Props> = ({products: initlaProducts, productsQuery, offset = 0, limit = 10, cardProps, highlightCard, gridProps}) => {
   const client = useClientUnsafe();
   console.log('initialProducts', initlaProducts);
   const [products, setProducts] = useState(initlaProducts || []);
