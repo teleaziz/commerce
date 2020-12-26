@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import { Layout } from '@components/common'
 import { buildClient } from 'shopify-buy'
 import shopifyConfig from '@config/shopify';
-import { BuilderComponent, builder, Builder } from '@builder.io/react'
+import { BuilderComponent, builder, Builder, BuilderContent } from '@builder.io/react'
 import { apiKey } from '@config/builder';
 // TODO: fix utils package
 import { getAsyncProps } from '@lib/get-async-props';
@@ -16,7 +16,7 @@ import Head from 'next/head'
 
 // import { getAsyncProps } from '@builder.io/utils/src/get-async-props';
 builder.init(apiKey);
-import '../../sections/ProductGrid/ProductGrid.builder';
+import '../sections/ProductGrid/ProductGrid.builder';
 Builder.isStatic = true;
 
 // Data
@@ -29,7 +29,8 @@ export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ path: string[] }>) {
    const client = buildClient(config);
-    const page = await builder.get('page', { userAttributes: { urlPath: '/' + params?.path.join('/') }}).toPromise();
+   console.log('trying to find builder page ', params?.path?.join('/'), params?.path )
+    const page = await builder.get('page', { userAttributes: { urlPath: '/' + (params?.path?.join('/') || '')}}).toPromise();
     const pageWithData = await getAsyncProps(page, {
       async productsQuery(field) {
         const products = await client.product.fetchQuery(field.productsQuery)
@@ -48,9 +49,10 @@ export async function getStaticProps({
 
 export async function getStaticPaths({ locales }: GetStaticPathsContext) {
 
-  const pages = (await fetch(`https://cdn.builder.io/api/v2/content/page?apiKey=${apiKey}`).then(res => res.json())).results;
+  const pages: BuilderContent[] = (await fetch(`https://cdn.builder.io/api/v2/content/page?apiKey=${apiKey}`).then(res => res.json())).results;
   return {
-    paths: pages.map((page: any) => `${page.data?.url}`).filter((url: string) => url !== '/').map((url: string) => `/m${url}`),
+    // exclude home page to always render on the server instead of static
+    paths: pages.map((page) => `${page.data?.url}`).filter((url: string) => url !== '/'),
     fallback: true,
   }
 }
