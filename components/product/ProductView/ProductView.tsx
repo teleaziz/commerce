@@ -18,7 +18,6 @@ interface Props {
 
 const ProductView: FC<Props> = ({ product }) => {
   const addItem = useAddItemToCart()
-  console.log('product ,' , product);
   const colors = product.options?.find(option => option?.name?.toLowerCase() === 'color')?.values!;
   const sizes = product.options?.find(option => option?.name?.toLowerCase() === 'size')?.values;
 

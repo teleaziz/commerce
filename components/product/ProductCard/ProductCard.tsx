@@ -4,7 +4,7 @@ import Image from 'next/image'
 import type { FC } from 'react'
 import s from './ProductCard.module.css'
 
-interface Props {
+export interface ProductCardProps {
   className?: string
   product: ShopifyBuy.Product
   variant?: 'slim' | 'simple'
@@ -16,7 +16,7 @@ interface Props {
   imgSizes?: string
 }
 
-const ProductCard: FC<Props> = ({
+const ProductCard: FC<ProductCardProps> = ({
   className,
   product: p,
   variant,
@@ -27,11 +27,11 @@ const ProductCard: FC<Props> = ({
   imgSizes,
   imgLayout = 'responsive',
 }) => {
-  const src = p.selectedVariantImage.src;
-  const price =  p.selectedVariant.price;
+  const src = p.images[0].src;
+  const price =  p.variants[0].price;
 
   return (
-    <Link href={`/product${(p as any).handle}`}>
+    <Link href={`/product/${(p as any).handle}`}>
       <a
         className={cn(s.root, { [s.simple]: variant === 'simple' }, className)}
       >

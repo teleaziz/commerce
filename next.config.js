@@ -8,10 +8,6 @@ module.exports = bundleAnalyzer({
   images: {
     domains: ['cdn.shopify.com', 'cdn.builder.io'],
   },
-  i18n: {
-    locales: ['en-US', 'es'],
-    defaultLocale: 'en-US',
-  },
   rewrites() {
     return [
       // Rewrites for /search

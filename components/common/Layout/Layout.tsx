@@ -9,6 +9,7 @@ import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
 import { Sidebar, Button, LoadingDots } from '@components/ui'
 import { CartSidebarView } from '@components/cart'
 import { CommerceProvider } from '@lib/shopify/storefront-data-hooks'
+import shopifyConfig from '@config/shopify';
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">
@@ -16,36 +17,25 @@ const Loading = () => (
   </div>
 )
 
-const dynamicProps = {
-  loading: () => <Loading />,
-}
-
 const FeatureBar = dynamic(
   () => import('@components/common/FeatureBar'),
-  dynamicProps
+  {
+    loading: () => <Loading />,
+  }
 )
 
-interface Props {
-  pageProps: {
-  }
-}
-
-const Layout: FC<Props> = ({ children, pageProps }) => {
+const Layout: FC = ({ children }) => {
   const {
     displaySidebar,
-    displayModal,
     closeSidebar,
-    closeModal,
-    modalView,
   } = useUI()
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
-  const { locale = 'en-US' } = useRouter()
 
   return (
-    <CommerceProvider shopName='builder-io-store' accessToken='2dd7917030d4c08c36d2cf4bb7617df0'>
+    <CommerceProvider {...shopifyConfig}>
       <div className={cn(s.root)}>
         <Navbar />
-        <main className="fit">{children}</main>
+        <main className="fit max-w-8xl mx-auto">{children}</main>
         <Footer />
 
         <Sidebar open={displaySidebar} onClose={closeSidebar}>

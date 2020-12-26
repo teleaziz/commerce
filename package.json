@@ -42,12 +42,15 @@
     ]
   },
   "dependencies": {
+    "@builder.io/react": "^1.1.31",
+    "@builder.io/utils": "^1.0.0",
     "@reach/portal": "^0.11.2",
     "@tailwindcss/ui": "^0.6.2",
     "@testing-library/react-hooks": "^3.7.0",
     "@types/body-scroll-lock": "^2.6.1",
     "@types/lodash.throttle": "^4.1.6",
     "@types/shopify-buy": "^2.10.3",
+    "@types/traverse": "^0.6.32",
     "@vercel/fetch": "^6.1.0",
     "body-scroll-lock": "^3.1.5",
     "bowser": "^2.11.0",
@@ -68,7 +71,8 @@
     "react-merge-refs": "^1.1.0",
     "react-ticker": "^1.2.2",
     "shopify-buy": "^2.11.0",
-    "tailwindcss": "^1.9"
+    "tailwindcss": "^1.9",
+    "traverse": "^0.6.6"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^10.0.1",
