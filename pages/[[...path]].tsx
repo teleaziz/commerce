@@ -5,46 +5,32 @@ import type {
 } from 'next'
 import { useRouter } from 'next/router'
 import { Layout } from '@components/common'
-import { buildClient } from 'shopify-buy'
-import shopifyConfig from '@config/shopify';
-import { BuilderComponent, builder, Builder, BuilderContent } from '@builder.io/react'
+import { BuilderComponent, Builder, builder, BuilderContent } from '@builder.io/react'
 import { apiKey } from '@config/builder';
-// TODO: fix utils package
-import { getAsyncProps } from '@lib/get-async-props';
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
-
-// import { getAsyncProps } from '@builder.io/utils/src/get-async-props';
 builder.init(apiKey);
 import '../sections/ProductGrid/ProductGrid.builder';
-Builder.isStatic = true;
+import '../sections/Hero/Hero.builder';
 
-// Data
-const config = {
-  domain: shopifyConfig.shopName,
-  storefrontAccessToken: shopifyConfig.accessToken,
-}
+import { resolveBuilderContent } from '@lib/resolve-builder-content';
+
+const isDev = process.env.NODE_ENV === 'development';
 
 export async function getStaticProps({
   params,
+  locale,
 }: GetStaticPropsContext<{ path: string[] }>) {
-   const client = buildClient(config);
-   console.log('trying to find builder page ', params?.path?.join('/'), params?.path )
-    const page = await builder.get('page', { userAttributes: { urlPath: '/' + (params?.path?.join('/') || '')}}).toPromise();
-    const pageWithData = await getAsyncProps(page, {
-      async productsQuery(field) {
-        const products = await client.product.fetchQuery(field.productsQuery)
-        return {
-          products: JSON.parse(JSON.stringify(products)),
-        }
-      }
-    })
-    return {
-      props: {
-        page: page ? pageWithData : null,
-      },
-      revalidate: 200,
-    }
+  const page = await resolveBuilderContent('page', {locale, urlPath: '/' + (params?.path?.join('/') || '') });
+  return {
+    props: {
+      page,
+    },
+    // Next.js will attempt to re-generate the page:
+    // - When a request comes in
+    // - At most once every 4 minutes ( 240 seconds)
+    revalidate: isDev ? 1 : 240,
+  }
 }
 
 export async function getStaticPaths({ locales }: GetStaticPathsContext) {

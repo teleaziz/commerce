@@ -1,5 +1,5 @@
 import { BuilderContent, BuilderElement } from '@builder.io/sdk';
-import traverse, { map } from 'traverse';
+import traverse from 'traverse';
 type PropsMappers = { [key: string]: (props: any) => Promise<any> };
 
 export async function getAsyncProps(content: BuilderContent, mappers: PropsMappers) {

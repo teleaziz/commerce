@@ -61,17 +61,27 @@ const gridFields: Input[] = [
   }
 ]
 
-
 Builder.registerComponent(LazyProductGrid, {
   name: 'Product Grid',
   inputs: [
     {
       name: 'productsQuery',
       type: 'object',
+      onChange: (options: Map<string, any>) => {
+        const isMarquee= options.get('marquee');
+        if (isMarquee) {
+          // Marquee requires a rerender on each change
+          // this is only needed while editing in builder
+          options.set('marquee', false);
+          setTimeout(() => options.set('marquee', true));
+        }
+      },
+
       helperText: 'shopify products query input ',
       defaultValue: {
-        sortBy: 'createdAt',
-        first: 10
+        sortBy:'RELEVANCE',
+        first:3,
+        query:'shirt'
       },
       subFields: [
         {
@@ -122,7 +132,28 @@ Builder.registerComponent(LazyProductGrid, {
       ],
     },
     {
+      name: 'marquee',
+      type: 'boolean',
+      defaultValue: false,
+    },  
+    {
+      name: 'marqueeOptions',
+      showIf: (options) => options.get('marquee'),
+      defaultValue: {
+        variant: 'primary',
+      },
+      type: 'object',
+      subFields: [
+        {
+          name: 'variant',
+          type: 'enum',
+          enum: ['primary', 'secondary'],
+        }
+      ]
+    },
+    {
       name: 'gridProps',
+      showIf: (options) => !options.get('marquee'),
       defaultValue: {
         variant: 'default',
         layout: 'A',
@@ -132,7 +163,20 @@ Builder.registerComponent(LazyProductGrid, {
     },
     {
       name: 'cardProps',
+      onChange: (options: Map<string, any>) => {
+        const isMarquee= options.get('marquee');
+        if (isMarquee) {
+          // Marquee requires a rerender on each change
+          // this is only needed while editing in builder
+          options.set('marquee', false);
+          setTimeout(() => options.set('marquee', true));
+        }
+      },
       defaultValue: {
+        variant:'simple',
+        imgPriority:true,
+        imgLayout:'responsive',
+        imgLoading:'eager',
         imgWidth: 540,
         imgHeight: 540,
         layout: 'fixed',
@@ -142,9 +186,14 @@ Builder.registerComponent(LazyProductGrid, {
     },
     {
       name: 'highlightCard',
+      showIf: (options) => !options.get('marquee'),
       defaultValue: {
         imgWidth: 1080,
         imgHeight: 1080,
+        variant:'simple',
+        imgPriority:true,
+        imgLayout:'responsive',
+        imgLoading:'eager',
         layout: 'fixed',
         index: 1,
       },
@@ -159,7 +208,7 @@ Builder.registerComponent(LazyProductGrid, {
     {
       name: 'limit',
       type: 'number',
-      defaultValue: 10,
+      defaultValue: 3,
     },
   ]
 })

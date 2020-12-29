@@ -7,9 +7,11 @@ interface Props {
   className?: string
   headline: string
   description: string
+  ctaLink: string
+  ctaText: string
 }
 
-const Hero: FC<Props> = ({ headline, description }) => {
+const Hero: FC<Props> = ({ headline, description, ctaLink, ctaText }) => {
   return (
     <div className="bg-black">
       <Container>
@@ -21,9 +23,9 @@ const Hero: FC<Props> = ({ headline, description }) => {
             <p className="mt-5 text-xl leading-7 text-accent-2 text-white">
               {description}
             </p>
-            <Link href="/blog">
+            <Link href={ctaLink}>
               <a className="text-white pt-3 font-bold hover:underline flex flex-row cursor-pointer w-max-content">
-                Read it here
+                {ctaText}
                 <RightArrow width="20" heigh="20" className="ml-1" />
               </a>
             </Link>

@@ -26,8 +26,6 @@ const ProductView: FC<Props> = ({ product }) => {
   ]);
   const images = useMemo(() => prepareVariantsImages(variants, 'color'), [variants]);
 
-  // todo read price
-  const price = '123123' 
   const { openSidebar } = useUI()
   const [loading, setLoading] = useState(false)
   const [variant, setVariant] = useState(variants[0]);

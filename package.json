@@ -34,7 +34,8 @@
     "include": [
       "components",
       "lib",
-      "pages"
+      "pages",
+      "sections"
     ],
     "exclude": [],
     "entrypoints": [

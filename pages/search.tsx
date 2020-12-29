@@ -4,11 +4,9 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { Layout } from '@components/common'
-import { ProductCard } from '@components/product'
 import { Container, Grid, Skeleton } from '@components/ui'
 
 import rangeMap from '@lib/range-map'
-import getSlug from '@lib/get-slug'
 import {
   filterQuery,
   getCategoryPath,
