@@ -74,8 +74,16 @@ const Footer: FC<Props> = ({ className }) => {
           </div>
           <div className="flex items-center text-primary">
             <span className="text-primary">Crafted by</span>
-            <a href="https://vercel.com" aria-label="Vercel.com Link" target="_blank" className="text-primary">
-              <Vercel className="inline-block h-6 ml-4 text-primary" alt="Vercel.com Logo" />
+            <a
+              href="https://vercel.com"
+              aria-label="Vercel.com Link"
+              target="_blank"
+              className="text-primary"
+            >
+              <Vercel
+                className="inline-block h-6 ml-4 text-primary"
+                alt="Vercel.com Logo"
+              />
             </a>
           </div>
         </div>

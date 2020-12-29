@@ -7,12 +7,12 @@ import { CartItem } from '@components/cart'
 import { Text } from '@components/ui'
 
 export default function Cart() {
-  const cart = useCart();
-  const checkoutUrl = useCheckoutUrl();
-  const subTotal = cart?.subtotalPrice;
+  const cart = useCart()
+  const checkoutUrl = useCheckoutUrl()
+  const subTotal = cart?.subtotalPrice
   const total = ' - '
   const items = cart?.lineItems ?? []
-  const isEmpty = items.length === 0;
+  const isEmpty = items.length === 0
 
   const error = null
   const success = null
@@ -111,7 +111,9 @@ export default function Cart() {
                 <Button href={checkoutUrl} Component="a" width="100%">
                   Proceed to Checkout
                 </Button>
-              ): <></>}
+              ) : (
+                <></>
+              )}
             </div>
           </div>
         </div>

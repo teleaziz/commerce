@@ -15,7 +15,7 @@ const countItems = (count: number, items: any[]) =>
 
 const UserNav: FC<Props> = ({ className, children, ...props }) => {
   const { toggleSidebar } = useUI()
-  const itemsCount = useCartCount();
+  const itemsCount = useCartCount()
 
   return (
     <nav className={cn(s.root, className)}>

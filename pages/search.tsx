@@ -18,9 +18,8 @@ export async function getStaticProps({
   preview,
   locale,
 }: GetStaticPropsContext) {
-
   return {
-    props: { pages: [], categories: [], brands: []},
+    props: { pages: [], categories: [], brands: [] },
   }
 }
 
@@ -48,9 +47,9 @@ export default function Search({
 
   const { pathname, category, brand } = useSearchMeta(asPath)
   const activeCategory: any = null
-  const activeBrand: any = null;
+  const activeBrand: any = null
 
-  const data: any = null;
+  const data: any = null
 
   const handleClick = (event: any, filter: string) => {
     if (filter !== activeFilter) {

@@ -9,7 +9,7 @@ import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
 import { Sidebar, Button, LoadingDots } from '@components/ui'
 import { CartSidebarView } from '@components/cart'
 import { CommerceProvider } from '@lib/shopify/storefront-data-hooks'
-import shopifyConfig from '@config/shopify';
+import shopifyConfig from '@config/shopify'
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">
@@ -17,18 +17,12 @@ const Loading = () => (
   </div>
 )
 
-const FeatureBar = dynamic(
-  () => import('@components/common/FeatureBar'),
-  {
-    loading: () => <Loading />,
-  }
-)
+const FeatureBar = dynamic(() => import('@components/common/FeatureBar'), {
+  loading: () => <Loading />,
+})
 
 const Layout: FC = ({ children }) => {
-  const {
-    displaySidebar,
-    closeSidebar,
-  } = useUI()
+  const { displaySidebar, closeSidebar } = useUI()
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
 
   return (

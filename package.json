@@ -6,7 +6,8 @@
     "build": "next build",
     "start": "next start",
     "analyze": "BUNDLE_ANALYZE=both yarn build",
-    "find:unused": "next-unused"
+    "find:unused": "next-unused",
+    "prettier": "prettier"
   },
   "prettier": {
     "semi": false,

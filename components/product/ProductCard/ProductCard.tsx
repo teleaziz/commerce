@@ -27,8 +27,8 @@ const ProductCard: FC<ProductCardProps> = ({
   imgSizes,
   imgLayout = 'responsive',
 }) => {
-  const src = p.images[0].src;
-  const price =  p.variants[0].price;
+  const src = p.images[0].src
+  const price = p.variants[0].price
 
   return (
     <Link href={`/product/${(p as any).handle}`}>

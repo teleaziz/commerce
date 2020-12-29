@@ -5,23 +5,31 @@ import type {
 } from 'next'
 import { useRouter } from 'next/router'
 import { Layout } from '@components/common'
-import { BuilderComponent, Builder, builder, BuilderContent } from '@builder.io/react'
-import { apiKey } from '@config/builder';
+import {
+  BuilderComponent,
+  Builder,
+  builder,
+  BuilderContent,
+} from '@builder.io/react'
+import { apiKey } from '@config/builder'
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
-builder.init(apiKey);
-import '../sections/ProductGrid/ProductGrid.builder';
-import '../sections/Hero/Hero.builder';
+builder.init(apiKey)
+import '../sections/ProductGrid/ProductGrid.builder'
+import '../sections/Hero/Hero.builder'
 
-import { resolveBuilderContent } from '@lib/resolve-builder-content';
+import { resolveBuilderContent } from '@lib/resolve-builder-content'
 
-const isDev = process.env.NODE_ENV === 'development';
+const isDev = process.env.NODE_ENV === 'development'
 
 export async function getStaticProps({
   params,
   locale,
 }: GetStaticPropsContext<{ path: string[] }>) {
-  const page = await resolveBuilderContent('page', {locale, urlPath: '/' + (params?.path?.join('/') || '') });
+  const page = await resolveBuilderContent('page', {
+    locale,
+    urlPath: '/' + (params?.path?.join('/') || ''),
+  })
   return {
     props: {
       page,
@@ -34,11 +42,16 @@ export async function getStaticProps({
 }
 
 export async function getStaticPaths({ locales }: GetStaticPathsContext) {
-
-  const pages: BuilderContent[] = (await fetch(`https://cdn.builder.io/api/v2/content/page?apiKey=${apiKey}`).then(res => res.json())).results;
+  const pages: BuilderContent[] = (
+    await fetch(
+      `https://cdn.builder.io/api/v2/content/page?apiKey=${apiKey}`
+    ).then((res) => res.json())
+  ).results
   return {
     // exclude home page to always render on the server instead of static
-    paths: pages.map((page) => `${page.data?.url}`).filter((url: string) => url !== '/'),
+    paths: pages
+      .map((page) => `${page.data?.url}`)
+      .filter((url: string) => url !== '/'),
     fallback: true,
   }
 }
@@ -47,24 +60,27 @@ export default function Path({
   page,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter()
-  if(router.isFallback) {
+  if (router.isFallback) {
     return <h1>Loading...</h1>
- }
+  }
   // This includes setting the noindex header because static files always return a status 200 but the rendered not found page page should obviously not be indexed
-  if(!page && !Builder.isEditing && !Builder.isPreviewing) {
-    return (<>
-      <Head>
-        <meta name="robots" content="noindex" />
-      </Head>
-      <DefaultErrorPage statusCode={404} />
-    </>)
+  if (!page && !Builder.isEditing && !Builder.isPreviewing) {
+    return (
+      <>
+        <Head>
+          <meta name="robots" content="noindex" />
+        </Head>
+        <DefaultErrorPage statusCode={404} />
+      </>
+    )
   }
 
-  return <BuilderComponent
-    model='page'
-    {...!Builder.isEditing && !Builder.isPreviewing && { content: page}}
-  />
-
+  return (
+    <BuilderComponent
+      model="page"
+      {...(!Builder.isEditing && !Builder.isPreviewing && { content: page })}
+    />
+  )
 }
 
 Path.Layout = Layout

@@ -10,14 +10,14 @@ import s from './CartSidebarView.module.css'
 
 const CartSidebarView: FC = () => {
   const { closeSidebar } = useUI()
-  const checkoutUrl = useCheckoutUrl();
+  const checkoutUrl = useCheckoutUrl()
   const cart = useCart()
-  const subTotal = cart?.subtotalPrice;
+  const subTotal = cart?.subtotalPrice
   const total = ' - '
   const handleClose = () => closeSidebar()
 
   const items = cart?.lineItems ?? []
-  const isEmpty = items.length === 0;
+  const isEmpty = items.length === 0
 
   const error = null
   const success = null
@@ -117,11 +117,11 @@ const CartSidebarView: FC = () => {
                 <span>{total}</span>
               </div>
             </div>
-            {
-              checkoutUrl && <Button href={checkoutUrl!} Component="a" width="100%">
-              Proceed to Checkout
-            </Button>
-            }
+            {checkoutUrl && (
+              <Button href={checkoutUrl!} Component="a" width="100%">
+                Proceed to Checkout
+              </Button>
+            )}
           </div>
         </>
       )}

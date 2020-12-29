@@ -1,12 +1,12 @@
-import React from 'react';
-import ShopifyBuy from 'shopify-buy';
+import React from 'react'
+import ShopifyBuy from 'shopify-buy'
 
 interface ContextShape {
-  client: ShopifyBuy.Client | null;
-  cart: ShopifyBuy.Cart | null;
-  setCart: React.Dispatch<React.SetStateAction<ShopifyBuy.Cart | null>>;
-  shopName: string;
-  storefrontAccessToken: string;
+  client: ShopifyBuy.Client | null
+  cart: ShopifyBuy.Cart | null
+  setCart: React.Dispatch<React.SetStateAction<ShopifyBuy.Cart | null>>
+  shopName: string
+  storefrontAccessToken: string
 }
 
 export const Context = React.createContext<ContextShape>({
@@ -15,6 +15,6 @@ export const Context = React.createContext<ContextShape>({
   shopName: '',
   storefrontAccessToken: '',
   setCart: () => {
-    throw Error('You forgot to wrap this in a Provider object');
+    throw Error('You forgot to wrap this in a Provider object')
   },
-});
+})

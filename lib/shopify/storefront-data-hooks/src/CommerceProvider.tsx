@@ -1,69 +1,69 @@
-import React, {useState, useEffect} from 'react';
-import ShopifyBuy from 'shopify-buy';
-import {Context} from './Context';
-import {LocalStorage, LocalStorageKeys} from './utils';
+import React, { useState, useEffect } from 'react'
+import ShopifyBuy from 'shopify-buy'
+import { Context } from './Context'
+import { LocalStorage, LocalStorageKeys } from './utils'
 
 interface Props {
-  shopName: string;
-  accessToken: string;
-  children: React.ReactNode;
+  shopName: string
+  accessToken: string
+  children: React.ReactNode
 }
 
-export function CommerceProvider({shopName, accessToken, children}: Props) {
+export function CommerceProvider({ shopName, accessToken, children }: Props) {
   if (shopName == null || accessToken == null) {
     throw new Error(
-      'Unable to build shopify-buy client object. Please make sure that your access token and domain are correct.',
-    );
+      'Unable to build shopify-buy client object. Please make sure that your access token and domain are correct.'
+    )
   }
 
-  const initialCart = LocalStorage.getInitialCart();
-  const [cart, setCart] = useState<ShopifyBuy.Cart | null>(initialCart);
+  const initialCart = LocalStorage.getInitialCart()
+  const [cart, setCart] = useState<ShopifyBuy.Cart | null>(initialCart)
 
-  const isCustomDomain = shopName.includes('.');
+  const isCustomDomain = shopName.includes('.')
 
   const client = ShopifyBuy.buildClient({
     storefrontAccessToken: accessToken,
     domain: isCustomDomain ? shopName : `${shopName}.myshopify.com`,
-  });
+  })
 
   useEffect(() => {
     async function getNewCart() {
-      const newCart = await client.checkout.create();
-      setCart(newCart);
+      const newCart = await client.checkout.create()
+      setCart(newCart)
     }
 
     async function refreshExistingCart(cartId: string) {
       try {
-        const refreshedCart = await client.checkout.fetch(cartId);
+        const refreshedCart = await client.checkout.fetch(cartId)
 
         if (refreshedCart == null) {
-          return getNewCart();
+          return getNewCart()
         }
 
         // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
-        const cartHasBeenPurchased = refreshedCart.completedAt != null;
+        const cartHasBeenPurchased = refreshedCart.completedAt != null
 
         if (cartHasBeenPurchased) {
-          getNewCart();
+          getNewCart()
         } else {
-          setCart(refreshedCart);
+          setCart(refreshedCart)
         }
       } catch (error) {
-        console.error(error);
+        console.error(error)
       }
     }
 
     if (cart == null) {
-      getNewCart();
+      getNewCart()
     } else {
-      refreshExistingCart(String(cart.id));
+      refreshExistingCart(String(cart.id))
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
-    LocalStorage.set(LocalStorageKeys.CART, JSON.stringify(cart));
-  }, [cart]);
+    LocalStorage.set(LocalStorageKeys.CART, JSON.stringify(cart))
+  }, [cart])
 
   return (
     <Context.Provider
@@ -77,5 +77,5 @@ export function CommerceProvider({shopName, accessToken, children}: Props) {
     >
       {children}
     </Context.Provider>
-  );
+  )
 }

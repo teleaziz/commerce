@@ -4,7 +4,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Trash, Plus, Minus } from '@components/icons'
 import { getPrice } from '@lib/shopify/storefront-data-hooks/src/utils/product'
-import { useUpdateItemQuantity, useRemoveItemFromCart, useCheckoutUrl } from '@lib/shopify/storefront-data-hooks'
+import {
+  useUpdateItemQuantity,
+  useRemoveItemFromCart,
+  useCheckoutUrl,
+} from '@lib/shopify/storefront-data-hooks'
 import s from './CartItem.module.css'
 
 const CartItem = ({
@@ -15,19 +19,22 @@ const CartItem = ({
   currencyCode: string
 }) => {
   // TODO: get real maxVariantPrice
-  const price = getPrice(item.variant.priceV2.amount, item.variant.priceV2.currencyCode);
+  const price = getPrice(
+    item.variant.priceV2.amount,
+    item.variant.priceV2.currencyCode
+  )
   const updateItem = useUpdateItemQuantity()
   const removeItem = useRemoveItemFromCart()
   const [quantity, setQuantity] = useState(item.quantity)
   const [removing, setRemoving] = useState(false)
-  const updateQuantity = async (quantity: number ) => {
-    await updateItem(item.variant.id, quantity);
+  const updateQuantity = async (quantity: number) => {
+    await updateItem(item.variant.id, quantity)
   }
   const handleQuantity = (e: ChangeEvent<HTMLInputElement>) => {
     const val = Number(e.target.value)
 
     if (Number.isInteger(val) && val >= 0) {
-      setQuantity(val);
+      setQuantity(val)
     }
   }
   const handleBlur = () => {
@@ -51,9 +58,9 @@ const CartItem = ({
     try {
       // If this action succeeds then there's no need to do `setRemoving(true)`
       // because the component will be removed from the view
-      await removeItem(item.variant.id);
+      await removeItem(item.variant.id)
     } catch (error) {
-      console.log(error);
+      console.log(error)
       setRemoving(false)
     }
   }

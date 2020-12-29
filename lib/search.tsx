@@ -35,7 +35,6 @@ export const filterQuery = (query: any) =>
   }, {})
 
 export const getCategoryPath = (path: string, brand?: string) => {
-
   return ''
 }
 
