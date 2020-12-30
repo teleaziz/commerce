@@ -27,7 +27,7 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ slug: string }>) {
   const client = buildClient(config)
 
-  const product: any = await client.product.fetchByHandle(params!.slug)
+  const product = await client.product.fetchByHandle(params!.slug)
   const page = await resolveBuilderContent('product-page-template', {
     product: product.id,
     locale,
@@ -63,6 +63,7 @@ export default function Slug({
     <h1>Loading...</h1> // TODO (BC) Add Skeleton Views
   ) : (
     <BuilderComponent
+      key={product.id}
       model="product-page-template"
       data={{ product }}
       {...(!Builder.isEditing && !Builder.isPreviewing && { content: page })}

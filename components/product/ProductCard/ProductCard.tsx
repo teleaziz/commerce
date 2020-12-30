@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import type { FC } from 'react'
 import s from './ProductCard.module.css'
+import { getPrice } from '@lib/shopify/storefront-data-hooks/src/utils/product'
 
 export interface ProductCardProps {
   className?: string
@@ -28,7 +29,8 @@ const ProductCard: FC<ProductCardProps> = ({
   imgLayout = 'responsive',
 }) => {
   const src = p.images[0].src
-  const price = p.variants[0].price
+  const productVariant: any = p.variants[0];
+  const price = getPrice(productVariant.priceV2.amount,productVariant.priceV2.currencyCode)
 
   return (
     <Link href={`/product/${(p as any).handle}`}>

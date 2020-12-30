@@ -1,6 +1,6 @@
 // todo read from env
 
 export default {
-  shopName: 'graphql.myshopify.com',
-  accessToken: 'dd4d4dc146542ba7763305d71d1b3d38'
+  shopName: 'builder-io-store.myshopify.com',
+  accessToken: '2dd7917030d4c08c36d2cf4bb7617df0'
 }

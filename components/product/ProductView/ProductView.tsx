@@ -12,6 +12,7 @@ import { useAddItemToCart } from '@lib/shopify/storefront-data-hooks'
 import {
   prepareVariantsWithOptions,
   prepareVariantsImages,
+  getPrice,
 } from '@lib/shopify/storefront-data-hooks/src/utils/product'
 interface Props {
   className?: string
@@ -21,12 +22,13 @@ interface Props {
 
 const ProductView: FC<Props> = ({ product }) => {
   const addItem = useAddItemToCart()
-  const colors = product.options?.find(
+  const colors: string[] | undefined= product.options?.find(
     (option) => option?.name?.toLowerCase() === 'color'
-  )?.values!
-  const sizes = product.options?.find(
+  )?.values?.map(op => op.value as string);
+
+  const sizes: string[] | undefined = product.options?.find(
     (option) => option?.name?.toLowerCase() === 'size'
-  )?.values
+  )?.values?.map(op => op.value as string)
 
   const variants = useMemo(
     () => prepareVariantsWithOptions(product!.variants! as any),
@@ -36,21 +38,27 @@ const ProductView: FC<Props> = ({ product }) => {
     variants,
   ])
 
+  console.log('images ', images);
+
   const { openSidebar } = useUI()
   const [loading, setLoading] = useState(false)
   const [variant, setVariant] = useState(variants[0])
   const [color, setColor] = useState(variant.color)
   const [size, setSize] = useState(variant.size)
 
+  console.log('here color is ', color, ' size  ', size);
+
   useEffect(() => {
     const newVariant = variants.find((variant) => {
       return variant.size === size && variant.color === color
     })
 
-    if (variant.shopifyId !== newVariant.shopifyId) {
+    console.log('new variant  ', newVariant);
+
+    if (variant.id !== newVariant.id) {
       setVariant(newVariant)
     }
-  }, [size, color, variants, variant.shopifyId])
+  }, [size, color, variants, variant.id])
 
   const addToCart = async () => {
     setLoading(true)
@@ -87,8 +95,7 @@ const ProductView: FC<Props> = ({ product }) => {
           <div className={s.nameBox}>
             <h1 className={s.name}>{product.title}</h1>
             <div className={s.price}>
-              {variant.compareAtPrice}
-              {` `}
+              {getPrice(variant.priceV2.amount, variant.priceV2.currencyCode)}
             </div>
           </div>
 
@@ -113,21 +120,41 @@ const ProductView: FC<Props> = ({ product }) => {
 
         <div className={s.sidebar}>
           <section>
-            <div className="pb-4">
-              <h2 className="uppercase font-medium">Colors</h2>
+            { colors && (colors?.length > 0 )&& <div className="pb-4">
+              <h2 className="uppercase font-medium">Color:</h2>
               <div className="flex flex-row py-4">
-                {colors?.map((opt) => (
+                {colors.map((option) => (
                   <Swatch
-                    key={opt.option_id}
-                    color={opt.value}
-                    label={opt.name}
+                    variant='color'
+                    active={color === option}
+                    key={option}
+                    color={option}
+                    label={option}
                     onClick={() => {
-                      setColor(opt)
+                      setColor(option)
                     }}
                   />
                 ))}
               </div>
             </div>
+            }
+            { sizes && sizes.length > 0 && <div className="pb-4">
+              <h2 className="uppercase font-medium">Size</h2>
+              <div className="flex flex-row py-4">
+                {sizes.map((option) => (
+                  <Swatch
+                    active={ size === option}
+                    key={option}
+                    variant='size'
+                    label={option}
+                    onClick={() => {
+                      setSize(option)
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+            }
 
             <div className="pb-14 break-words w-full max-w-xl">
               <Text html={product.description} />

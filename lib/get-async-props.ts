@@ -1,4 +1,4 @@
-import { BuilderContent, BuilderElement } from '@builder.io/sdk';
+import { BuilderContent } from '@builder.io/sdk';
 import traverse from 'traverse';
 type PropsMappers = { [key: string]: (props: any) => Promise<any> };
 
