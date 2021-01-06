@@ -3,6 +3,7 @@ import type {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from 'next'
+import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { Layout } from '@components/common'
 import {
@@ -33,6 +34,7 @@ export async function getStaticProps({
   return {
     props: {
       page,
+      locale,
     },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
@@ -58,6 +60,7 @@ export async function getStaticPaths({ locales }: GetStaticPathsContext) {
 
 export default function Path({
   page,
+  locale,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter()
   if (router.isFallback) {
@@ -69,17 +72,40 @@ export default function Path({
       <>
         <Head>
           <meta name="robots" content="noindex" />
+          <meta name="title"></meta>
         </Head>
         <DefaultErrorPage statusCode={404} />
       </>
     )
   }
 
+  const { title, description, image } = page.data
   return (
-    <BuilderComponent
-      model="page"
-      {...(!Builder.isEditing && !Builder.isPreviewing && { content: page })}
-    />
+    <>
+      <NextSeo
+        title={title}
+        description={description}
+        openGraph={{
+          type: 'website',
+          title,
+          description,
+          locale,
+          images: [
+            {
+              url: image,
+              width: 800,
+              height: 600,
+              alt: title,
+            },
+          ],
+        }}
+      />
+      <BuilderComponent
+        options={{ includeRefs: true } as any}
+        model="page"
+        {...(!Builder.isEditing && !Builder.isPreviewing && { content: page })}
+      />
+    </>
   )
 }
 

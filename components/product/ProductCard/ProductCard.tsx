@@ -29,8 +29,11 @@ const ProductCard: FC<ProductCardProps> = ({
   imgLayout = 'responsive',
 }) => {
   const src = p.images[0].src
-  const productVariant: any = p.variants[0];
-  const price = getPrice(productVariant.priceV2.amount,productVariant.priceV2.currencyCode)
+  const productVariant: any = p.variants[0]
+  const price = getPrice(
+    productVariant.priceV2.amount,
+    productVariant.priceV2.currencyCode
+  )
 
   return (
     <Link href={`/product/${(p as any).handle}`}>

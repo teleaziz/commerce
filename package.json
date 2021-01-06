@@ -54,6 +54,7 @@
     "@types/shopify-buy": "^2.10.3",
     "@types/traverse": "^0.6.32",
     "@vercel/fetch": "^6.1.0",
+    "atob": "^2.1.2",
     "body-scroll-lock": "^3.1.5",
     "bowser": "^2.11.0",
     "classnames": "^2.2.6",
@@ -79,6 +80,7 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^10.0.1",
+    "@types/atob": "^2.1.2",
     "@types/bunyan": "^1.8.6",
     "@types/bunyan-prettystream": "^0.1.31",
     "@types/classnames": "^2.2.10",

@@ -11,7 +11,6 @@ import { Button, Container, Text } from '@components/ui'
 import { useAddItemToCart } from '@lib/shopify/storefront-data-hooks'
 import {
   prepareVariantsWithOptions,
-  prepareVariantsImages,
   getPrice,
 } from '@lib/shopify/storefront-data-hooks/src/utils/product'
 interface Props {
@@ -22,23 +21,21 @@ interface Props {
 
 const ProductView: FC<Props> = ({ product }) => {
   const addItem = useAddItemToCart()
-  const colors: string[] | undefined= product.options?.find(
-    (option) => option?.name?.toLowerCase() === 'color'
-  )?.values?.map(op => op.value as string);
+  const colors: string[] | undefined = product.options
+    ?.find((option) => option?.name?.toLowerCase() === 'color')
+    ?.values?.map((op) => op.value as string)
 
-  const sizes: string[] | undefined = product.options?.find(
-    (option) => option?.name?.toLowerCase() === 'size'
-  )?.values?.map(op => op.value as string)
+  const sizes: string[] | undefined = product.options
+    ?.find((option) => option?.name?.toLowerCase() === 'size')
+    ?.values?.map((op) => op.value as string)
 
   const variants = useMemo(
     () => prepareVariantsWithOptions(product!.variants! as any),
     [product.variants]
   )
-  const images = useMemo(() => prepareVariantsImages(variants, 'color'), [
-    variants,
-  ])
-
-  console.log('images ', images);
+  // const images = useMemo(() => prepareVariantsImages(variants, 'color'), [
+  //   variants,
+  // ])
 
   const { openSidebar } = useUI()
   const [loading, setLoading] = useState(false)
@@ -46,14 +43,12 @@ const ProductView: FC<Props> = ({ product }) => {
   const [color, setColor] = useState(variant.color)
   const [size, setSize] = useState(variant.size)
 
-  console.log('here color is ', color, ' size  ', size);
-
   useEffect(() => {
     const newVariant = variants.find((variant) => {
       return variant.size === size && variant.color === color
     })
 
-    console.log('new variant  ', newVariant);
+    console.log('new variant  ', newVariant)
 
     if (variant.id !== newVariant.id) {
       setVariant(newVariant)
@@ -120,41 +115,43 @@ const ProductView: FC<Props> = ({ product }) => {
 
         <div className={s.sidebar}>
           <section>
-            { colors && (colors?.length > 0 )&& <div className="pb-4">
-              <h2 className="uppercase font-medium">Color:</h2>
-              <div className="flex flex-row py-4">
-                {colors.map((option) => (
-                  <Swatch
-                    variant='color'
-                    active={color === option}
-                    key={option}
-                    color={option}
-                    label={option}
-                    onClick={() => {
-                      setColor(option)
-                    }}
-                  />
-                ))}
+            {colors && colors?.length > 0 && (
+              <div className="pb-4">
+                <h2 className="uppercase font-medium">Color:</h2>
+                <div className="flex flex-row py-4">
+                  {colors.map((option) => (
+                    <Swatch
+                      variant="color"
+                      active={color === option}
+                      key={option}
+                      color={option}
+                      label={option}
+                      onClick={() => {
+                        setColor(option)
+                      }}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
-            }
-            { sizes && sizes.length > 0 && <div className="pb-4">
-              <h2 className="uppercase font-medium">Size</h2>
-              <div className="flex flex-row py-4">
-                {sizes.map((option) => (
-                  <Swatch
-                    active={ size === option}
-                    key={option}
-                    variant='size'
-                    label={option}
-                    onClick={() => {
-                      setSize(option)
-                    }}
-                  />
-                ))}
+            )}
+            {sizes && sizes.length > 0 && (
+              <div className="pb-4">
+                <h2 className="uppercase font-medium">Size</h2>
+                <div className="flex flex-row py-4">
+                  {sizes.map((option) => (
+                    <Swatch
+                      active={size === option}
+                      key={option}
+                      variant="size"
+                      label={option}
+                      onClick={() => {
+                        setSize(option)
+                      }}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
-            }
+            )}
 
             <div className="pb-14 break-words w-full max-w-xl">
               <Text html={product.description} />

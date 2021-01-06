@@ -1,12 +1,12 @@
-import { builder, Builder } from '@builder.io/react';
+import { builder, Builder } from '@builder.io/react'
 import { getAsyncProps } from './get-async-props'
 import { buildClient } from 'shopify-buy'
-import { apiKey } from '@config/builder';
+import { apiKey } from '@config/builder'
 // TODO: fix utils package
-import shopifyConfig from '@config/shopify';
+import shopifyConfig from '@config/shopify'
 // import { getAsyncProps } from '@builder.io/utils/src/get-async-props';
-builder.init(apiKey);
-Builder.isStatic = true;
+builder.init(apiKey)
+Builder.isStatic = true
 
 // Data
 const config = {
@@ -14,9 +14,21 @@ const config = {
   storefrontAccessToken: shopifyConfig.accessToken,
 }
 
-export async function resolveBuilderContent( modelName: string, targetingAttributes: any) {
-  const client = buildClient(config);
-  const page = await builder.get(modelName, { userAttributes: targetingAttributes }).toPromise();
+export async function resolveBuilderContent(
+  modelName: string,
+  targetingAttributes: any
+) {
+  const client = buildClient(config)
+  let page = await builder
+    .get(modelName, {
+      userAttributes: targetingAttributes,
+      includeRefs: true,
+      preview: modelName,
+      cachebust: true,
+      noCache: true,
+    } as any)
+    .toPromise()
+
   if (page) {
     return await getAsyncProps(page, {
       async productsQuery(field) {
@@ -24,8 +36,8 @@ export async function resolveBuilderContent( modelName: string, targetingAttribu
         return {
           products: JSON.parse(JSON.stringify(products)),
         }
-      }
-    })  
+      },
+    })
   }
-  return null;
+  return null
 }
