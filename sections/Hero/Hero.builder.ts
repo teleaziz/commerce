@@ -1,9 +1,9 @@
-import dynamic from 'next/dynamic';
-import { Builder } from '@builder.io/react';
+import dynamic from 'next/dynamic'
+import { Builder } from '@builder.io/react'
 
 const LazyHero = dynamic(async () => {
-  return (await import('./Hero')).default;
-});
+  return (await import('./Hero')).default
+})
 
 Builder.registerComponent(LazyHero, {
   name: 'Hero',
@@ -16,7 +16,8 @@ Builder.registerComponent(LazyHero, {
     {
       name: 'description',
       type: 'string',
-      defaultValue: 'Stop waiting on development release cycles. Start dragging and dropping to build and optimize digital experiences for your website, app, or ecommerce store.',
+      defaultValue:
+        'Stop waiting on development release cycles. Start dragging and dropping to build and optimize digital experiences for your website, app, or ecommerce store.',
     },
     {
       name: 'ctaLink',
@@ -28,5 +29,5 @@ Builder.registerComponent(LazyHero, {
       type: 'string',
       defaultValue: 'read more',
     },
-  ]
+  ],
 })

@@ -72,8 +72,6 @@ const CartItem = ({
     }
   }, [item.quantity])
 
-  console.log(item, 'item')
-
   return (
     <li
       className={cn('flex flex-row space-x-8 py-8', {

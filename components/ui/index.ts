@@ -9,5 +9,5 @@ export { default as Skeleton } from './Skeleton'
 export { default as Modal } from './Modal'
 export { default as Text } from './Text'
 export { default as Input } from './Input'
-export type { GridProps } from './Grid';
-export type { MarqueeProps } from './Marquee';
+export type { GridProps } from './Grid'
+export type { MarqueeProps } from './Marquee'
