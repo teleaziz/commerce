@@ -304,10 +304,10 @@
   resolved "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@builder.io/react@^5.0.2-15":
-  version "5.0.2-15"
-  resolved "https://registry.yarnpkg.com/@builder.io/react/-/react-5.0.2-15.tgz#392e23f5d52fbae00d81492829137e3aae5a7d92"
-  integrity sha512-uxoluuksPOhu8FhfF1aDFZbODO85z7O1dbb1DRMNX1YogcEQi1zuy5S8DgpKnvc++SOTFPAUlyUqeYxMUmHDiQ==
+"@builder.io/react@^5.0.2-16":
+  version "5.0.2-16"
+  resolved "https://registry.yarnpkg.com/@builder.io/react/-/react-5.0.2-16.tgz#92a15609b7fb37da25c3373d0ceaff5b4684a4ed"
+  integrity sha512-g61mucv9FnK1lcHmXyX6+wyUcHcdfzb1bGYU6NpAlxry7Q4Gkbxgz62ASRDLEAL2hedO690AoaDkWwbPH7hHzw==
   dependencies:
     "@builder.io/sdk" "3.0.2-0"
     "@emotion/core" "^10.0.17"
