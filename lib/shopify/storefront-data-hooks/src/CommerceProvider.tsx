@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import ShopifyBuy from 'shopify-buy'
 import { Context } from './Context'
 import { LocalStorage, LocalStorageKeys } from './utils'
+import builder from '@builder.io/react'
 
 export interface CommerceProviderProps extends ShopifyBuy.Config {
   children: React.ReactNode
@@ -63,6 +64,9 @@ export function CommerceProvider({
 
   useEffect(() => {
     LocalStorage.set(LocalStorageKeys.CART, JSON.stringify(cart))
+    builder.setUserAttributes({
+      itemInCart: cart?.lineItems?.map((item: any) => item.variant.product.handle) || [],
+    })
   }, [cart])
 
   return (
