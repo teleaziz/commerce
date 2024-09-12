@@ -304,12 +304,12 @@
   resolved "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@builder.io/react@^5.0.2-18":
-  version "5.0.2-18"
-  resolved "https://registry.yarnpkg.com/@builder.io/react/-/react-5.0.2-18.tgz#6cfaf521c2f85d377f65b2f0df6ab55de3156cb6"
-  integrity sha512-Z9IyMFkdHNEwOr9XiYhUcBvkfHrBBw2rl/PF0XumfyTdYUWZ+GqD7+4vwh01bt1wt4D2S0NhnnLnBrZsJG/fZg==
+"@builder.io/react@^5.0.2-20":
+  version "5.0.2-20"
+  resolved "https://registry.yarnpkg.com/@builder.io/react/-/react-5.0.2-20.tgz#536b0119b1ad7f67c33a36775d93d31fda44919c"
+  integrity sha512-x7J9G57IjTbwJ2WK8o6JsUbln6DU17L2CRvFdOY3YiYQ7gWl5jqafu329ORgKG/bdzbw2+CvmQlFADqirFlW+w==
   dependencies:
-    "@builder.io/sdk" "3.0.2-1"
+    "@builder.io/sdk" "3.0.2-2"
     "@emotion/core" "^10.0.17"
     hash-sum "^2.0.0"
     isolated-vm "^5.0.0"
@@ -318,10 +318,10 @@
     node-fetch "^2.6.1"
     prop-types "^15.7.2"
 
-"@builder.io/sdk@3.0.2-1":
-  version "3.0.2-1"
-  resolved "https://registry.yarnpkg.com/@builder.io/sdk/-/sdk-3.0.2-1.tgz#e2be99c3803022e47344b1667cd4b977ba092c47"
-  integrity sha512-I9GFiIg4BIfJnMCF4XDLY+hVddox/mIMwYGK0n2vSTF3bg7Z+v6nu2OxI600CbsshBTTrdju7CIMRhGdAiJaiQ==
+"@builder.io/sdk@3.0.2-2":
+  version "3.0.2-2"
+  resolved "https://registry.yarnpkg.com/@builder.io/sdk/-/sdk-3.0.2-2.tgz#b8c1f85dd573e40979ae91a29299fe675d1e0911"
+  integrity sha512-5y/X9DJ7huxv7dyyihL1nPiihvPbamQw+biOE5/z9X3vk6LznRmYdnyXD2uCV4bbWU4o8nzoG1JpXKccgjhzew==
   dependencies:
     hash-sum "^2.0.0"
     node-fetch "^2.3.0"
