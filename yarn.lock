@@ -304,12 +304,12 @@
   resolved "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@builder.io/react@^5.0.2-20":
-  version "5.0.2-20"
-  resolved "https://registry.yarnpkg.com/@builder.io/react/-/react-5.0.2-20.tgz#536b0119b1ad7f67c33a36775d93d31fda44919c"
-  integrity sha512-x7J9G57IjTbwJ2WK8o6JsUbln6DU17L2CRvFdOY3YiYQ7gWl5jqafu329ORgKG/bdzbw2+CvmQlFADqirFlW+w==
+"@builder.io/react@^5.0.3":
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/@builder.io/react/-/react-5.0.3.tgz#9cfffeeb2108a87aeaeb846527cd0dcb03e11728"
+  integrity sha512-GoeQoJi2vt5XnGYAbsM5zbvvoem+XrOwJf29WLUEQPCh50s9PS6qoqjUe6At9V/dBTjGjpTpunG5wnlkJxJTTQ==
   dependencies:
-    "@builder.io/sdk" "3.0.2-2"
+    "@builder.io/sdk" "3.0.2"
     "@emotion/core" "^10.0.17"
     hash-sum "^2.0.0"
     isolated-vm "^5.0.0"
@@ -318,10 +318,10 @@
     node-fetch "^2.6.1"
     prop-types "^15.7.2"
 
-"@builder.io/sdk@3.0.2-2":
-  version "3.0.2-2"
-  resolved "https://registry.yarnpkg.com/@builder.io/sdk/-/sdk-3.0.2-2.tgz#b8c1f85dd573e40979ae91a29299fe675d1e0911"
-  integrity sha512-5y/X9DJ7huxv7dyyihL1nPiihvPbamQw+biOE5/z9X3vk6LznRmYdnyXD2uCV4bbWU4o8nzoG1JpXKccgjhzew==
+"@builder.io/sdk@3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@builder.io/sdk/-/sdk-3.0.2.tgz#cb3bf6cc3daddd3efdf8ff1a7a3943d1f7c6ad6d"
+  integrity sha512-xe36UHma+WybWGbEd3eBaPMRjkoul5Z2L3PWofSoM+M2vaZdVLcmSKtfZsit8oaPOJAK5SKCz+fR3Lcu/AURYw==
   dependencies:
     hash-sum "^2.0.0"
     node-fetch "^2.3.0"
@@ -3247,7 +3247,7 @@ has@^1.0.3:
 
 hash-sum@^2.0.0:
   version "2.0.0"
-  resolved "https://registry.npmjs.org/hash-sum/-/hash-sum-2.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/hash-sum/-/hash-sum-2.0.0.tgz#81d01bb5de8ea4a214ad5d6ead1b523460b0b45a"
   integrity sha512-WdZTbAByD+pHfl/g9QSsBIIwy8IT+EsPiKDs0KNX+zSHhdDLFKdZu0BQHljvO+0QI/BasbMSUa8wYNCZTvhslg==
 
 hoist-non-react-statics@^3.3.1:
@@ -4672,9 +4672,9 @@ preact-transition-group@^1.1.1:
   integrity sha512-v89XLodCvylf5lMrhI+LqIhDsAjWfiDKV4keAU+L5yDtxmqn8uvjZXn+haKMEG0x0PZz81own19SuNJD5NlOFQ==
 
 preact@^10.1.0:
-  version "10.17.1"
-  resolved "https://registry.npmjs.org/preact/-/preact-10.17.1.tgz"
-  integrity sha512-X9BODrvQ4Ekwv9GURm9AKAGaomqXmip7NQTZgY7gcNmr7XE83adOMJvd3N42id1tMFU7ojiynRsYnY6/BRFxLA==
+  version "10.24.1"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-10.24.1.tgz#501e206d0a46667b6d0d8b780c7a65172239b2d0"
+  integrity sha512-PnBAwFI3Yjxxcxw75n6VId/5TFxNW/81zexzWD9jn1+eSrOP84NdsS38H5IkF/UH3frqRPT+MvuCoVHjTDTnDw==
 
 preact@^8.4.2:
   version "8.5.3"
